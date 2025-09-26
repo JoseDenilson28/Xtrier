@@ -18,6 +18,22 @@ document.addEventListener("DOMContentLoaded", function() {
       1024: { slidesPerView: 3 }
     }
   });
+
+  const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu-mobile');
+
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('translate-x-full');
+    });
+
+    // Fechar menu ao clicar fora
+    window.addEventListener('click', (e) => {
+        if(!menu.contains(e.target) && !btn.contains(e.target)) {
+            if(!menu.classList.contains('translate-x-full')) {
+                menu.classList.add('translate-x-full');
+            }
+        }
+    });
  
 
 });

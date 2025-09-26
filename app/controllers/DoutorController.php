@@ -2,7 +2,7 @@
 class DoutorController extends Controller {
     public function dashboard() {
         session_start();
-        if (!isset($_SESSION['user_id']) || $_SESSION['user_tipo'] !== 'doutor') {
+        if (!isset($_SESSION['user']) || $_SESSION['user']['tipo'] !== 'doutor') {
             header("Location: /Xtrier/public/auth/login");
             exit;
         }

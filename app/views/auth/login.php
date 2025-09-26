@@ -1,4 +1,4 @@
-<?php require_once "../app/views/layout/header.php"; ?>
+<?php require_once "../app/views/layout/header_auth.php"; ?>
 
 <div class="min-h-screen flex items-center justify-center p-4 relative">
   <!-- Background Image -->

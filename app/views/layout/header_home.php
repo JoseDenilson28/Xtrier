@@ -51,8 +51,8 @@
     </div>
 
     <!-- Menu Mobile -->
-    <div id="menu-mobile" class="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-green-900/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 shadow-2xl z-40">
-        <nav class="flex flex-col mt-20 space-y-4 font-medium text-white px-6">
+    <div id="menu-mobile" class="fixed top-0 right-0 h-full w-3/4 max-w-xs backdrop-blur-md bg-green-800/70 transform translate-x-full transition-transform duration-300 shadow-2xl z-40">
+        <nav class="flex flex-col mt-20 space-y-4 font-medium text-white px-6 pb-6 backdrop-blur-md bg-green-800/70">
             <a href="#servicos" class="hover:text-green-300 transition">Serviços</a>
             <a href="#casos" class="hover:text-green-300 transition">Galeria de Sucessos</a>
             <a href="#doutores" class="hover:text-green-300 transition">Doutores</a>
@@ -65,20 +65,4 @@
     </div>
 </header>
 
-<script>
-    const btn = document.getElementById('menu-btn');
-    const menu = document.getElementById('menu-mobile');
 
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('translate-x-full');
-    });
-
-    // Fechar menu ao clicar fora
-    window.addEventListener('click', (e) => {
-        if(!menu.contains(e.target) && !btn.contains(e.target)) {
-            if(!menu.classList.contains('translate-x-full')) {
-                menu.classList.add('translate-x-full');
-            }
-        }
-    });
-</script>

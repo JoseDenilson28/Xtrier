@@ -51,12 +51,12 @@
     </div>
 
     <!-- Menu Mobile -->
-    <div id="menu-mobile" class="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-green-900/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 shadow-2xl z-40">
-        <nav class="flex flex-col mt-20 space-y-4 font-medium text-white px-6">
-            <a href="<?= BASE_URL ?>#servicos" class="hover:text-green-300 transition">Serviços</a>
-            <a href="<?= BASE_URL ?>#casos" class="hover:text-green-300 transition">Galeria de Sucessos</a>
-            <a href="<?= BASE_URL ?>#doutores" class="hover:text-green-300 transition">Doutores</a>
-            <a href="<?= BASE_URL ?>#contactos" class="hover:text-green-300 transition">Contactos</a>
+    <div id="menu-mobile" class="fixed top-0 right-0 h-full w-3/4 max-w-xs backdrop-blur-md bg-green-800/70 transform translate-x-full transition-transform duration-300 shadow-2xl z-40">
+        <nav class="flex flex-col mt-20 space-y-4 font-medium text-white px-6 pb-6 backdrop-blur-md bg-green-800/70">
+            <a href="#servicos" class="hover:text-green-300 transition">Serviços</a>
+            <a href="#casos" class="hover:text-green-300 transition">Galeria de Sucessos</a>
+            <a href="#doutores" class="hover:text-green-300 transition">Doutores</a>
+            <a href="#contactos" class="hover:text-green-300 transition">Contactos</a>
             <a href="<?= BASE_URL ?>/home/faq" class="hover:text-green-300 transition">FAQ</a>
             <a href="<?= BASE_URL ?>/auth/login" class="mt-6 block px-4 py-2 bg-white text-green-800 rounded-lg shadow hover:bg-gray-100 transition text-center font-semibold">
                 Entrar
@@ -115,4 +115,4 @@
         </div>
     </div>
 </section>
-<?php include '../app/views/layout/footer.php'; ?>
+<?php include '../app/views/layout/footer_home.php'; ?>

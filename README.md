@@ -1,4 +1,8 @@
+Inicie sempre o Tailwind css com esse comando no cmd:
+npx tailwindcss -i ./public/assets/css/style.css -o ./public/assets/css/output.css --watch
+
 # Xtrier
+
 Sistema de Triagem
 
 Banco de Dados (MySQL)
@@ -21,11 +25,13 @@ Paciente:
 
 Cadastro/login.
 
-Preenchimento da ficha de triagem.
+Dashboard
 
-Ver status da fila em tempo real.
+Formulário de Triagem
 
-Receber notificações (consulta confirmada, doutor disponível).
+Status da Fila
+
+Notificações/Histórico
 
 Recepcionista:
 

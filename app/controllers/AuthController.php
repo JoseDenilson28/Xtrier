@@ -8,7 +8,7 @@ class AuthController extends Controller {
             $db = new Database();
             $conn = $db->getConnection();
 
-            $email = $_POST['email'];
+            $email = trim($_POST['email']);
             $senha = $_POST['senha'];
 
             $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
@@ -18,10 +18,12 @@ class AuthController extends Controller {
 
             if ($user && password_verify($senha, $user['senha'])) {
                 session_start();
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_tipo'] = $user['tipo'];
 
-                // Redireciona para o painel correto
+                // 🔒 Remover a senha do array antes de salvar na sessão
+                unset($user['senha']);
+                $_SESSION['user'] = $user;
+
+                // Redireciona de acordo com o tipo
                 switch ($user['tipo']) {
                     case 'paciente':
                         header("Location: /Xtrier/public/paciente/dashboard");
@@ -34,6 +36,10 @@ class AuthController extends Controller {
                         break;
                     case 'admin':
                         header("Location: /Xtrier/public/admin/dashboard");
+                        break;
+                    default:
+                        // Caso tipo não seja reconhecido
+                        header("Location: /Xtrier/public/auth/login");
                         break;
                 }
                 exit;
@@ -52,17 +58,26 @@ class AuthController extends Controller {
             $db = new Database();
             $conn = $db->getConnection();
 
-            $nome = $_POST['nome'];
-            $email = $_POST['email'];
+            $nome = trim($_POST['nome']);
+            $email = trim($_POST['email']);
             $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
-            $stmt = $conn->prepare("INSERT INTO users (nome, email, senha) VALUES (:nome, :email, :senha)");
+            $stmt = $conn->prepare("INSERT INTO users (nome, email, senha, tipo) 
+                                    VALUES (:nome, :email, :senha, :tipo)");
+
             $stmt->bindParam(":nome", $nome);
             $stmt->bindParam(":email", $email);
             $stmt->bindParam(":senha", $senha);
 
+            // 🔑 Por padrão, todo novo cadastro entra como "paciente"
+            $tipo = "paciente";
+            $stmt->bindParam(":tipo", $tipo);
+
             if ($stmt->execute()) {
-                echo "<script>alert('Cadastro realizado com sucesso! Faça login.'); window.location.href='/Xtrier/public/auth/login';</script>";
+                echo "<script>
+                        alert('Cadastro realizado com sucesso! Faça login.');
+                        window.location.href='/Xtrier/public/auth/login';
+                      </script>";
             } else {
                 echo "<script>alert('Erro ao cadastrar');</script>";
             }
@@ -71,33 +86,23 @@ class AuthController extends Controller {
         $this->view("auth/register");
     }
 
+    // Logout
     public function logout() {
-    // Inicia a sessão atual
-    session_start();
+        session_start();
 
-    // Limpa todas as variáveis da sessão
-    $_SESSION = [];
+        $_SESSION = [];
 
-    // Destroi o cookie de sessão, se existir
-    if (ini_get("session.use_cookies")) {
-        $params = session_get_cookie_params();
-        setcookie(
-            session_name(),
-            '',
-            time() - 42000,
-            $params["path"],
-            $params["domain"],
-            $params["secure"],
-            $params["httponly"]
-        );
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+        session_destroy();
+
+        header("Location: /Xtrier/public/auth/login");
+        exit;
     }
-
-    // Destroi a sessão
-    session_destroy();
-
-    // Redireciona para a página de login
-    header("Location: /Xtrier/public/auth/login");
-    exit;
-}
-
 }

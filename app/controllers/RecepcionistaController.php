@@ -2,7 +2,7 @@
 class RecepcionistaController extends Controller {
     public function dashboard() {
         session_start();
-        if (!isset($_SESSION['user_id']) || $_SESSION['user_tipo'] !== 'recepcionista') {
+        if (!isset($_SESSION['user']) || $_SESSION['user']['tipo'] !== 'recepcionista') {
             header("Location: /Xtrier/public/auth/login");
             exit;
         }
