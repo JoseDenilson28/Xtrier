@@ -3,7 +3,7 @@
 <div class="flex min-h-screen bg-gray-100 pt-16">
   <!-- Sidebar -->
   <aside id="sidebar" 
-  class="fixed inset-y-0 top-16 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-40 
+    class="fixed inset-y-0 top-16 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-40 
          lg:translate-x-0 lg:static flex flex-col">
 
 
