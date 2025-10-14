@@ -32,7 +32,7 @@
             <div>
             <label for="nome" class="block text-sm font-semibold text-gray-700 mb-1">Nome Completo</label>
             <input type="text" id="nome" name="nome" required 
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" value="<?php echo htmlspecialchars($_SESSION['user']['nome']); ?>">
             </div>
             <div>
             <label for="idade" class="block text-sm font-semibold text-gray-700 mb-1">Idade</label>
@@ -91,6 +91,17 @@
 
   </main>
 </div>
+
+<?php if (isset($_SESSION['alert'])): ?>
+    <script>
+        Swal.fire({
+            icon: '<?php echo $_SESSION['alert']['icon']; ?>',
+            title: '<?php echo $_SESSION['alert']['title']; ?>',
+            text: '<?php echo $_SESSION['alert']['text']; ?>',
+            confirmButtonColor: '#16a34a'
+        });
+    </script>
+<?php unset($_SESSION['alert']); endif; ?>
 
 <script>
   const sidebar = document.getElementById('sidebar');

@@ -36,13 +36,6 @@
         </svg>
         Minhas Consultas
       </a>
-      <a href="/Xtrier/public/paciente/exames" 
-         class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-green-50 text-gray-700 font-medium transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h13v6H9zM4 10V6h5v4H4z" />
-        </svg>
-        Meus Exames
-      </a>
       <a href="/Xtrier/public/paciente/perfil" 
          class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-green-50 text-gray-700 font-medium transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
