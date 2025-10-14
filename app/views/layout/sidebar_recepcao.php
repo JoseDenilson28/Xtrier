@@ -23,6 +23,16 @@
       Início
     </a>
 
+    <!-- Lista de Pacientes -->
+    <a href="/Xtrier/public/recepcionista/pacientes" 
+      class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-green-50 text-gray-700 font-medium transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a8 8 0 10-16 0v2h5" />
+        <circle cx="12" cy="10" r="3" />
+      </svg>
+      Pacientes
+    </a>
+
     <!-- Nova Triagem -->
     <a href="/Xtrier/public/recepcionista/triagem" 
       class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-green-50 text-gray-700 font-medium transition">
@@ -39,16 +49,6 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14" />
       </svg>
       Consultas
-    </a>
-
-    <!-- Lista de Pacientes -->
-    <a href="/Xtrier/public/recepcionista/pacientes" 
-      class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-green-50 text-gray-700 font-medium transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a8 8 0 10-16 0v2h5" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
-      Pacientes
     </a>
 
     <!-- Perfil -->
