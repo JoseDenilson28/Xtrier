@@ -1,3 +1,4 @@
+Vanister !!!
 Inicie sempre o Tailwind css com esse comando no cmd:
 npx tailwindcss -i ./public/assets/css/style.css -o ./public/assets/css/output.css --watch
 
