@@ -75,6 +75,16 @@ class PacienteController extends Controller {
 
         $this->view("paciente/triagem");
     }
+    
+    public function historico() {
+        session_start();
+        if (!isset($_SESSION['user']) || $_SESSION['user']['tipo'] !== 'paciente') {
+            header("Location: /Xtrier/public/auth/login");
+            exit;
+        }
+
+        $this->view("paciente/historico");
+    }
 
     public function consultas() {
         session_start();

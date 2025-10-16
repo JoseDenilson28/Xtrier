@@ -3,7 +3,7 @@
 <div class="flex min-h-screen bg-gray-100 pt-16">
     
   <!-- Sidebar -->
-  <?php include_once "../app/views/layout/sidebar.php"; ?>
+  <?php include_once "../app/views/layout/sidebar_paciente.php"; ?>
 
   <!-- Conteúdo Principal -->
   <main class="flex-1 p-8 space-y-10">

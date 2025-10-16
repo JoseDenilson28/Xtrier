@@ -23,8 +23,8 @@
     <div class="flex flex-col md:flex-row justify-between gap-4">
       <div class="relative w-full md:w-1/2">
         <input type="text" id="buscarPaciente" placeholder="Buscar por nome ou telefone..."
-               class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" />
-        
+               class="bg-white hover:shadow-lg w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" />
+
       </div>
       <button id="abrirModalNovoPaciente"
               class="px-6 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
@@ -79,20 +79,10 @@
     </div>
 
     <!-- Paginação -->
-     <!-- Paginação -->
-<div class="flex justify-center items-center mt-4 space-x-2">
-  <button id="prevPage" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">Anterior</button>
-  <span id="paginaInfo" class="px-2 text-gray-600"></span>
-  <button id="nextPage" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">Próximo</button>
-</div>
-
     <div class="flex justify-center items-center mt-4 space-x-2">
-      <?php for($i = 1; $i <= $data['totalPaginas']; $i++): ?>
-        <a href="?pagina=<?= $i ?>" 
-          class="px-3 py-1 rounded <?= $i == $data['paginaAtual'] ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300' ?>">
-          <?= $i ?>
-        </a>
-      <?php endfor; ?>
+      <button id="prevPage" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">Anterior</button>
+      <span id="paginaInfo" class="px-2 text-gray-600"></span>
+      <button id="nextPage" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">Próximo</button>
     </div>
 
   </main>

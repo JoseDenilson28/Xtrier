@@ -58,28 +58,71 @@ class AuthController extends Controller {
             $db = new Database();
             $conn = $db->getConnection();
 
-            $nome = trim($_POST['nome']);
-            $email = trim($_POST['email']);
-            $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+            try {
+                // 📥 Coleta os dados do formulário
+                $nome  = trim($_POST['nome']);
+                $email = trim($_POST['email']);
+                $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+                $tipo  = "paciente";
 
-            $stmt = $conn->prepare("INSERT INTO users (nome, email, senha, tipo) 
-                                    VALUES (:nome, :email, :senha, :tipo)");
+                // ✨ Inicia transação
+                $conn->beginTransaction();
 
-            $stmt->bindParam(":nome", $nome);
-            $stmt->bindParam(":email", $email);
-            $stmt->bindParam(":senha", $senha);
+                // 👤 1. Inserir usuário na tabela users
+                $stmtUser = $conn->prepare("
+                    INSERT INTO users (nome, email, senha, tipo, criado_em)
+                    VALUES (:nome, :email, :senha, :tipo, NOW())
+                ");
+                $stmtUser->bindParam(":nome", $nome);
+                $stmtUser->bindParam(":email", $email);
+                $stmtUser->bindParam(":senha", $senha);
+                $stmtUser->bindParam(":tipo", $tipo);
+                $stmtUser->execute();
 
-            // 🔑 Por padrão, todo novo cadastro entra como "paciente"
-            $tipo = "paciente";
-            $stmt->bindParam(":tipo", $tipo);
+                // 📌 Pegar o ID do usuário recém criado
+                $userId = $conn->lastInsertId();
 
-            if ($stmt->execute()) {
+                // 🏥 2. Criar registro em pacientes com campos vazios
+                $status = "ativo"; // pode ajustar para "pendente" se quiser
+                $stmtPaciente = $conn->prepare("
+                    INSERT INTO pacientes (
+                        user_id,
+                        data_nascimento,
+                        genero,
+                        telefone,
+                        endereco,
+                        documento,
+                        contato_emergencia,
+                        status,
+                        criado_em
+                    ) VALUES (
+                        :user_id,
+                        NULL,
+                        NULL,
+                        NULL,
+                        NULL,
+                        NULL,
+                        NULL,
+                        :status,
+                        NOW()
+                    )
+                ");
+                $stmtPaciente->bindParam(":user_id", $userId);
+                $stmtPaciente->bindParam(":status", $status);
+                $stmtPaciente->execute();
+
+                // 💾 Confirma transação
+                $conn->commit();
+
                 echo "<script>
                         alert('Cadastro realizado com sucesso! Faça login.');
                         window.location.href='/Xtrier/public/auth/login';
-                      </script>";
-            } else {
-                echo "<script>alert('Erro ao cadastrar');</script>";
+                    </script>";
+
+            } catch (Exception $e) {
+                $conn->rollBack();
+                error_log('Erro no cadastro: ' . $e->getMessage());
+                echo "<script>alert('Erro ao cadastrar. Tente novamente.');</script>";
             }
         }
 

@@ -164,4 +164,24 @@ class RecepcionistaController extends Controller {
         header("Location: /Xtrier/public/recepcionista/pacientes");
         exit;
     }
+
+    public function triagens() {
+        session_start();
+        if (!isset($_SESSION['user']) || $_SESSION['user']['tipo'] !== 'recepcionista') {
+            header("Location: /Xtrier/public/auth/login");
+            exit;
+        }
+
+        $this->view("recepcionista/triagens");
+    }
+
+    public function consultas() {
+        session_start();
+        if (!isset($_SESSION['user']) || $_SESSION['user']['tipo'] !== 'recepcionista') {
+            header("Location: /Xtrier/public/auth/login");
+            exit;
+        }
+
+        $this->view("recepcionista/consultas");
+    }
 }

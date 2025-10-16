@@ -12,7 +12,7 @@
   </div>
 
   <!-- Menu -->
-  <nav class="flex-1 p-4 space-y-2">
+  <nav class="flex-1 p-4 space-y-2 ">
 
     <!-- Dashboard -->
     <a href="/Xtrier/public/recepcionista/dashboard" 
@@ -34,7 +34,7 @@
     </a>
 
     <!-- Nova Triagem -->
-    <a href="/Xtrier/public/recepcionista/triagem" 
+    <a href="/Xtrier/public/recepcionista/triagens" 
       class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-green-50 text-gray-700 font-medium transition">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
