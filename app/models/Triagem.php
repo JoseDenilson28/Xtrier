@@ -74,4 +74,74 @@ class Triagem {
         }
         return $rows;
     }
+
+    public function listarPaginado(int $pagina, int $limite = 4) {
+        $offset = ($pagina - 1) * $limite;
+
+        $sql = "SELECT 
+                    t.id AS triagem_id,
+                    t.sintomas,
+                    t.historico,
+                    t.prioridade,
+                    t.pontos,
+                    t.criado_em,
+                    u.nome AS paciente_nome
+                FROM triagens t
+                INNER JOIN pacientes p ON t.paciente_id = p.id
+                INNER JOIN users u ON p.user_id = u.id
+                WHERE t.status = 'aberta'
+                ORDER BY 
+                    FIELD(t.prioridade, 'alta', 'media', 'baixa'), 
+                    t.criado_em ASC
+                LIMIT :limite OFFSET :offset";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($rows as &$r) {
+            $r['sintomas'] = implode(", ", json_decode($r['sintomas'], true) ?? []);
+        }
+
+        // total para paginação
+        $total = $this->db->query("SELECT COUNT(*) FROM triagens WHERE status = 'aberta'")->fetchColumn();
+        $totalPaginas = ceil($total / $limite);
+
+        return [
+            "triagens" => $rows,
+            "paginaAtual" => $pagina,
+            "totalPaginas" => $totalPaginas
+        ];
+    }
+
+    public function getTriagensAbertas() {
+        $sql = "SELECT 
+                    t.id AS triagem_id,
+                    t.sintomas,
+                    t.historico,
+                    t.prioridade,
+                    t.pontos,
+                    t.criado_em,
+                    u.nome AS paciente_nome
+                FROM triagens t
+                INNER JOIN pacientes p ON t.paciente_id = p.id
+                INNER JOIN users u ON p.user_id = u.id
+                WHERE t.status = 'aberta'
+                ORDER BY 
+                    FIELD(t.prioridade, 'alta', 'media', 'baixa'), 
+                    t.criado_em ASC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($rows as &$r) {
+            $r['sintomas'] = implode(", ", json_decode($r['sintomas'], true) ?? []);
+        }
+
+        return $rows;
+    }
+
 }

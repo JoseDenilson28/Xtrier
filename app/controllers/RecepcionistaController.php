@@ -175,6 +175,26 @@ class RecepcionistaController extends Controller {
         $this->view("recepcionista/triagens");
     }
 
+    public function listarTriagensAbertasAjax() {
+        session_start();
+        if (!isset($_SESSION['user']) || $_SESSION['user']['tipo'] !== 'recepcionista') {
+            http_response_code(403);
+            exit(json_encode(['erro' => 'Acesso negado']));
+        }
+
+        require_once __DIR__ . '/../models/Triagem.php';
+        $triagemModel = new Triagem();
+
+        $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        $limite = 4; // ✅ MOSTRAR SOMENTE 4
+
+        $resultado = $triagemModel->listarPaginado($pagina, $limite);
+
+        header('Content-Type: application/json');
+        echo json_encode($resultado);
+        exit;
+    }
+
     public function consultas() {
         session_start();
         if (!isset($_SESSION['user']) || $_SESSION['user']['tipo'] !== 'recepcionista') {
@@ -184,4 +204,28 @@ class RecepcionistaController extends Controller {
 
         $this->view("recepcionista/consultas");
     }
+
+    public function listarDoutoresAjax() {
+        session_start();
+        if (!isset($_SESSION['user']) || $_SESSION['user']['tipo'] !== 'recepcionista') {
+            http_response_code(403);
+            exit(json_encode(['erro' => 'Acesso negado']));
+        }
+
+        require_once __DIR__ . '/../models/Doutor.php';
+        $doutorModel = new Doutor();
+
+        $status = $_GET['status'] ?? 'livre';
+        $limite = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
+
+        $doutores = $doutorModel->listarPorStatus($status, $limite);
+
+        header('Content-Type: application/json');
+        echo json_encode($doutores);
+        exit;
+    }
+
+
 }
+
+

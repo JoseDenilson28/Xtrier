@@ -13,6 +13,7 @@
         <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
           Painel da Recepção
         </h1>
+        <a href=""></a>
         <p class="text-gray-600">Bem-vindo(a), <?= $user['nome'] ?? 'Recepcionista' ?> 👋</p>
       </div>
       <div class="text-gray-500 text-sm">
